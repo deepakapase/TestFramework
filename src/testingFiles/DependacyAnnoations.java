@@ -1,12 +1,14 @@
 package testingFiles;
 
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class DependacyAnnoations {
 
 	@Test
-	public void OpeningBrowser() {
-		System.out.println("Executing opening browser");
+	@Parameters("userId")
+	public void OpeningBrowser(String uId) {
+		System.out.println("Executing opening browser for user id "+uId);
 	}
 
 	@Test(dependsOnMethods={"OpeningBrowser"},alwaysRun=true)

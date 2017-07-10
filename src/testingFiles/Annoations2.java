@@ -1,7 +1,9 @@
 package testingFiles;
 
+
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Annoations2 {
@@ -13,8 +15,10 @@ public class Annoations2 {
 	public void deinstallSoftware(){
 		System.out.println("De installation of software");
 	}
-	@Test
-	public void sampleTest(){
-		System.out.println("I am the test");
+	
+	@Test(alwaysRun=true)
+	@Parameters({"userId"})
+	public void sampleTest(String uId){
+		System.out.println("test user id  : " +uId);
 	}
 }
