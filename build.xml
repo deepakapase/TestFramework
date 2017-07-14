@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TestFramework" basedir="." default="run">
+	<property name="build" value="${basedir}/build" />
+	<property name="basedir" value="." />
+	<property name="lib" value="${basedir}/lib" />
+	<property name="src" value="${basedir}/src" />
+	<property name="report-dir" value="${basedir}/test-reports" />
+
+	<!-- Set classpath -->
+    <target name="setClassPath">
+        <path id="classpath_jars">
+            <pathelement path="${basedir}/" />
+            <fileset dir="${lib}" includes="**/*.jar" />
+        </path>
+        <pathconvert pathsep=";" property="classpath" refid="classpath_jars" />
+    </target>
+
+   <!-- Load TestNG ant tasks -->
+   <target name="loadTestNG">
+        <taskdef resource="testngtasks" classpath="${classpath}" />
+    </target>
+
+	<!-- Delete directories  -->
+	<target name="delete-dir">
+		<delete dir="${build}" />
+		<delete dir="${report-dir}" />
+	</target>
+
+	<!-- Creating directories -->
+	<target name="create" depends="delete-dir">
+		<mkdir dir="${build}" />
+		<mkdir dir="${report-dir}" />
+	</target>
+
+	<!-- Compile the java code from ${src} into ${build} -->
+	<target name="compile" depends="create, setClassPath">
+		<javac srcdir="${basedir}/src" classpath="${classpath}" includeAntRuntime="No" destdir="${build}" />
+		<echo> /* Compiled Directory Classes */ </echo>
+	</target>
+
+	<!-- Generate the TestNG report -->
+	<target name="run" depends="compile, loadTestNG">
+		<echo> /* Generating TestNG reports */ </echo>
+		<testng outputdir="${report-dir}" classpath="${classpath};${build}" suitename="suite1">
+			<xmlfileset dir="${basedir}" includes="testng.xml" />
+		</testng>
+	</target>
+
+	<!-- Generate the TestNG report -->
+	<target name="testng-execution" depends="compile">
+		<echo> /* Generating TestNG reports */ </echo>
+		<testng outputdir="${report-dir}" classpathref="classpath" useDefaultListeners="true">
+			<xmlfileset dir="${basedir}" includes="testng.xml" />
+		</testng>
+	</target>
+</project>
+
+
+
