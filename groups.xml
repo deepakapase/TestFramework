@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Automation">
     <test name="Smoke Test">
     <groups>
@@ -9,7 +10,7 @@
         </run>
     </groups>
         <packages>
-            <package name="testingFiles*" />
+            <package name="test.testng.practice.annotations*" />
               
 </packages>
     </test>
